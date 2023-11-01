@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
             $table->string('value');
-            $table->boolean('is_active')->default(0);
+            $table->boolean('is_active')->default(1);
 
             $table->foreignId('attribute_id')->references('id')->on('attributes')->cascadeOnDelete();
             $table->foreignId('product_id')->references('id')->on('products')->cascadeOnDelete();

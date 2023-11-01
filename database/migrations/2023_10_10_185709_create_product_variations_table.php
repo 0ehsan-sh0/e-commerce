@@ -23,6 +23,8 @@ return new class extends Migration
 
             $table->foreignId('attribute_id')->references('id')->on('attributes')->cascadeOnDelete();
             $table->foreignId('product_id')->references('id')->on('products')->cascadeOnDelete();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

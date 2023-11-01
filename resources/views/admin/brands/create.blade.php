@@ -5,8 +5,8 @@
     <!-- Content Row -->
     <div class="row">
 
-        <div class="col-xl-12 col-md-12 p-md-5 mb-4 bg-white">
-            <div class="mb-4">
+        <div class="col-xl-12 col-md-12 p-4 mb-4 bg-white">
+            <div class="mb-4 text-center text-md-right">
                 <h5 class="font-weight-bold">ایجاد برند</h5>
             </div>
             <hr>

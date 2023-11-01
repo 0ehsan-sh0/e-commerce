@@ -118,9 +118,9 @@ class CategoryController extends Controller
                 'description' => $request->description
             ]);
 
-            $category->attributes()->sync($request->attribute_ids);
+            $category->attributes()->detach();
             foreach ($request->attribute_ids as $attributeId) {
-                $category->attributes()->updateExistingPivot($attributeId, [
+                $category->attributes()->attach($attributeId, [
                     'is_filter' => in_array($attributeId, $request->attribute_is_filter_ids),
                     'is_variation' => $attributeId === $request->variation_id
                 ]);
@@ -144,5 +144,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    // get category attributes
+    public function getCategoryAttributes(Category $category) {
+        $attributes = $category->attributes()->wherePivot('is_variation', 0)->get();
+        $variation = $category->attributes()->wherePivot('is_variation', 1)->first();
+        return ['attributes' => $attributes, 'variation' => $variation];
     }
 }

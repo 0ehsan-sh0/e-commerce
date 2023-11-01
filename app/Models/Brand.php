@@ -29,4 +29,8 @@ class Brand extends Model
     public function getIsActiveAttribute($is_active) {
         return $is_active ? 'فعال' : 'غیر فعال';
     }
+
+    public function products() {
+        return $this->hasMany(Product::class, 'brand_id');
+    }
 }

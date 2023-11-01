@@ -3,12 +3,14 @@
 @section('content')
     <div class="row">
 
-        <div class="col-xl-12 col-md-12 p-md-5 mb-4 bg-white">
-            <div class="d-flex justify-content-between mb-4">
-                <h5 class="font-weight-bold">لیست تگ ها ({{$tags->total()}})</h5>
-                <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-outline-primary">ایجاد تگ
-                    <i class="fa fa-plus"></i>
-                </a>
+        <div class="col-xl-12 col-md-12 p-4 mb-4 bg-white">
+            <div class="d-flex flex-column flex-md-row text-center justify-content-md-between mb-4">
+                <h5 class="font-weight-bold mb-3 mb-0">لیست تگ ها ({{$tags->total()}})</h5>
+                <div>
+                    <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-outline-primary">ایجاد تگ
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
             </div>
             
             <div>
@@ -39,6 +41,9 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                {{ $tags->render() }}
             </div>
         </div>
     </div>
