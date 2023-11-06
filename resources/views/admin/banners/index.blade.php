@@ -1,10 +1,11 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-    Banners
+    index banner
 @endsection
 
 @section('content')
+
     <!-- Content Row -->
     <div class="row">
 
@@ -42,8 +43,8 @@
                                     {{ $banners->firstItem() + $key }}
                                 </th>
                                 <th>
-                                    <a target="_blank" href="{{ url(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }}">
-                                        {{ $banner->image }}
+                                    <a target="_blank" href="{{ url( env('BANNER_IMAGES_UPLOAD_PATH').$banner->image ) }}">
+                                        {{$banner->image}}
                                     </a>
                                 </th>
                                 <th>
@@ -75,8 +76,7 @@
                                 </th>
 
                                 <th>
-                                    <form action="{{ route('admin.banners.destroy', ['banner' => $banner->id]) }}"
-                                        method="POST">
+                                    <form action="{{ route('admin.banners.destroy', ['banner' => $banner->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
 

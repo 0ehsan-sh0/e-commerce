@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\Tag;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\ProductRate;
 use App\Models\ProductAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -16,6 +18,7 @@ class Product extends Model
     use HasFactory, Sluggable;
     protected $table = 'products';
     protected $guarded = [];
+    protected $appends = ['quantity_check' , 'sale_check', 'price_check'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -29,6 +32,21 @@ class Product extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    public function getQuantityCheckAttribute()
+    {
+        return $this->variations()->where('quantity' , '>' , 0)->first() ?? 0;
+    }
+
+    public function getSaleCheckAttribute()
+    {
+        return $this->variations()->where('quantity' , '>' , 0)->where('sale_price', '!=' , null)->where('date_on_sale_from' , '<' , Carbon::now())->where('date_on_sale_to' , '>' , Carbon::now())->orderBy('sale_price')->first() ?? false;
+    }
+
+    public function getPriceCheckAttribute()
+    {
+        return $this->variations()->where('quantity' , '>' , 0)->orderBy('price')->first() ?? false;
     }
 
     public function getIsActiveAttribute($is_active) {
@@ -58,5 +76,9 @@ class Product extends Model
 
     public function images() {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function rates() {
+        return $this->hasMany(ProductRate::class);
     }
 }

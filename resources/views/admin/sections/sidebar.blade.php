@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">WebProg.ir</div>
+        <div class="sidebar-brand-text mx-3">MyShop.ir</div>
     </a>
 
     <!-- Divider -->
@@ -34,10 +34,9 @@
         </a>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
-            aria-expanded="true" aria-controls="collapseProducts">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true"
+            aria-controls="collapsePages">
             <i class="fas fa-fw fa-cart-plus"></i>
             <span> محصولات </span>
         </a>
@@ -50,6 +49,8 @@
             </div>
         </div>
     </li>
+
+
 
 
     <!-- Divider -->

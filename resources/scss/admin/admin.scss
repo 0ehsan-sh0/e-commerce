@@ -9,7 +9,7 @@
 // Import Bootstrap Select
 @import "~bootstrap-select/sass/bootstrap-select.scss";
 
-// Bootstrap Perisan DateTime picker
+// Import md.bootstrappersiandatetimepicker
 @import "~md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.style.css";
 
 // Import Custom SB Admin 2 Mixins and Components
@@ -104,7 +104,7 @@ body {
     margin-right: 10px;
 }
 
-.div-disabled {
+.div-disabled{
     background-color: #eaecf4;
 }
 
@@ -119,6 +119,6 @@ body {
     border-radius: 0.35rem 0 0 0.35rem;
 }
 
-.mds-bootstrap-persian-datetime-picker-popover {
+.mds-bootstrap-persian-datetime-picker-popover{
     max-width: fit-content !important;
 }

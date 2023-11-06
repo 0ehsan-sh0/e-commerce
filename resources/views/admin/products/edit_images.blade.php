@@ -1,46 +1,75 @@
 @extends('admin.layouts.admin')
-@section('title', 'Edit product images')
+
+@section('title')
+    edit products Images
+@endsection
+
+@section('script')
+    <script>
+        // Show File Name
+        $('#primary_image').change(function() {
+            //get the file name
+            var fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        });
+
+        $('#images').change(function() {
+            //get the file name
+            var fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        });
+
+    </script>
+@endsection
 
 @section('content')
+
     <!-- Content Row -->
     <div class="row">
 
-        <div class="col-xl-12 col-md-12 p-4 mb-4 bg-white">
+        <div class="col-xl-12 col-md-12 mb-4 p-5 bg-white">
             <div class="mb-4 text-center text-md-right">
                 <h5 class="font-weight-bold">ویرایش تصاویر محصول : {{ $product->name }}</h5>
             </div>
             <hr>
+
             @include('admin.sections.errors')
-            {{-- Show primary image --}}
+
+            {{-- Show Primary Image --}}
             <div class="row">
-                <div class="col-md-12 col-12 mb-5">
-                    <h5>تصویر اصلی :</h5>
+                <div class="col-12 col-md-12 mb-5">
+                    <h5>تصویر اصلی : </h5>
                 </div>
                 <div class="col-12 col-md-3 mb-5">
-                    <img class="card-img-top" src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
-                        alt="{{ $product->name }}">
+                    <div class="card">
+                        <img class="card-img-top"
+                            src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                            alt="{{ $product->name }}">
+                    </div>
                 </div>
             </div>
 
             <hr>
             <div class="row">
-                <div class="col-md-12 col-12 mb-5">
-                    <h5>تصاویر محصول :</h5>
+                <div class="col-12 col-md-12 mb-5">
+                    <h5>تصاویر : </h5>
                 </div>
                 @foreach ($product->images as $image)
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                            <img class="card-img-top" src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
                                 alt="{{ $product->name }}">
                             <div class="card-body text-center">
-                                <form action="{{ route('admin.products.images.destroy', ['image' => $image->id]) }}" method="POST">
+                                <form action="{{ route('admin.products.images.destroy', ['image' => $image->id]) }}" method="post">
                                     @method('DELETE')
                                     @csrf
+                                    <input type="hidden" name="image_id" value="{{ $image->id }}">
                                     <button class="btn btn-danger btn-sm mb-3" type="submit">حذف</button>
                                 </form>
-
                                 <form action="{{ route('admin.products.images.set_primary', ['product' => $product->id]) }}"
-                                    method="POST">
+                                    method="post">
                                     @method('PUT')
                                     @csrf
                                     <input type="hidden" name="image_id" value="{{ $image->id }}">
@@ -55,8 +84,8 @@
 
             <hr>
 
-            <form action="{{ route('admin.products.images.add', ['product' => $product->id]) }}" 
-                method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.products.images.add', ['product' => $product->id]) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-4">
@@ -75,27 +104,12 @@
                         </div>
                     </div>
                 </div>
+
                 <button class="btn btn-outline-primary mt-5" type="submit">ویرایش</button>
                 <a href="{{ route('admin.products.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
             </form>
         </div>
+
     </div>
-@endsection
 
-@section('scripts')
-    <script>
-        $('#primary_image').change(function() {
-            //get the file name
-            var fileName = $(this).val();
-            //replace the "Choose a file" label
-            $(this).next('.custom-file-label').html(fileName);
-        });
-
-        $('#images').change(function() {
-            //get the file name
-            var fileName = $(this).val();
-            //replace the "Choose a file" label
-            $(this).next('.custom-file-label').html(fileName);
-        });
-    </script>
 @endsection

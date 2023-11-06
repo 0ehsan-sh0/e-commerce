@@ -11,6 +11,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
     "use strict";
 
     $.fn.czMore = function (options) {
+
         //Set defauls for the control
         var defaults = {
             max: 50,
@@ -19,7 +20,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             onAdd: null,
             onDelete: null,
             styleOverride: false,
-            countFieldPrefix: "_czMore_txtCount",
+            countFieldPrefix: '_czMore_txtCount',
         };
         //Update unset options with defaults if needed
         var options = $.extend(defaults, options);
@@ -38,14 +39,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             var obj = $(this);
             var i = recordsetCount();
             var divPlus = '<div id="btnPlus" class="btnPlus"/>';
-            var count =
-                '<input id="' +
-                this.id +
-                options.countFieldPrefix +
-                '" name="' +
-                this.id +
-                options.countFieldPrefix +
-                '" type="hidden" value="0" size="5" />';
+            var count = '<input id="' + this.id + options.countFieldPrefix + '" name="' + this.id + options.countFieldPrefix + '" type="hidden" value="0" size="5" />';
 
             obj.before(count);
             var recordset = obj.children("#first");
@@ -53,26 +47,24 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             var set = recordset.children(".recordset").children().first();
             var btnPlus = obj.siblings("#btnPlus");
 
-            if (!options.styleOverride) {
-                btnPlus.css({
-                    float: "right",
-                    border: "0px",
-                    "background-position": "center center",
-                    "background-repeat": "no-repeat",
-                    height: "25px",
-                    width: "25px",
-                    cursor: "pointer",
-                });
-                btnPlus.append(
-                    $("<i/>", {
-                        class: "fa fa-plus fa-lg text-success",
-                    })
-                );
+            if(!options.styleOverride) {
+              btnPlus.css({
+                  'float': 'right',
+                  'border': '0px',
+                  'background-position': 'center center',
+                  'background-repeat': 'no-repeat',
+                  'height': '25px',
+                  'width': '25px',
+                  'cursor': 'pointer',
+              });
+              btnPlus.append($('<i/>' ,{
+                  class : 'fa fa-plus fa-lg text-success'
+              }));
             }
 
             if (recordset.length) {
                 obj.siblings("#btnPlus").click(function () {
-                    if (isMaxRecordset()) {
+                    if (isMaxRecordset()){
                         return false;
                     }
                     var i = recordsetCount();
@@ -91,9 +83,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
                         obj.trigger("onAdd", i);
                     }
 
-                    obj.siblings(
-                        "input[name$='" + options.countFieldPrefix + "']"
-                    ).val(i);
+                    obj.siblings("input[name$='" + options.countFieldPrefix + "']").val(i);
                     return false;
                 });
                 recordset.remove();
@@ -114,72 +104,58 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
             }
 
             function resetNumbering() {
-                $(obj)
-                    .children(".recordset")
-                    .each(function (index, element) {
-                        $(element)
-                            .find(
-                                "input:text, input:password, input:file, select, textarea"
-                            )
-                            .each(function () {
-                                var old_name = this.name;
-                                var new_name = old_name.replace(
-                                    /\_([0-9]\d{0})\_/g,
-                                    "_" + (index + 1) + "_"
-                                );
-                                this.id = this.name = new_name;
-                                //alert(this.name);
-                            });
-                        index++;
-                        minusClick(element);
+                $(obj).children(".recordset").each(function (index, element) {
+                   $(element).find('input:text, input:password, input:file, select, textarea').each(function(){
+                        var old_name = this.name;
+                        var new_name = old_name.replace(/\_([0-9]\d{0})\_/g, "_" + (index + 1) + "_");
+                        this.id = this.name = new_name;
+                        //alert(this.name);
                     });
+                    index++
+                    minusClick(element);
+                });
             }
 
             function loadMinus(recordset) {
                 var divMinus = '<div id="btnMinus" class="btnMinus" />';
                 $(recordset).children().first().before(divMinus);
                 var btnMinus = $(recordset).children("#btnMinus");
-                if (!options.styleOverride) {
-                    btnMinus.css({
-                        float: "right",
-                        border: "0px",
-                        "background-position": "center center",
-                        "background-repeat": "no-repeat",
-                        height: "25px",
-                        width: "25px",
-                        cursor: "poitnter",
-                    });
-                    btnMinus.append(
-                        $("<i/>", {
-                            class: "fa fa-times fa-lg text-danger",
-                        })
-                    );
-                }
+                if(!options.styleOverride) {
+                  btnMinus.css({
+                      'float': 'right',
+                      'border': '0px',
+                      'background-position': 'center center',
+                      'background-repeat': 'no-repeat',
+                      'height': '25px',
+                      'width': '25px',
+                      'cursor': 'poitnter',
+                  });
+                  btnMinus.append($('<i/>' ,{
+                    class : 'fa fa-times fa-lg text-danger'
+                }))
+              }
             }
 
             function minusClick(recordset) {
-                $(recordset)
-                    .children("#btnMinus")
-                    .click(function () {
-                        var i = recordsetCount();
-                        var id = $(recordset).attr("data-id");
-                        $(recordset).remove();
-                        resetNumbering();
-                        obj.siblings(
-                            "input[name$='" + options.countFieldPrefix + "']"
-                        ).val(obj.children(".recordset").length);
-                        i--;
-                        if (options.onDelete != null) {
-                            if (id != null) obj.trigger("onDelete", id);
-                        }
-                    });
+                $(recordset).children("#btnMinus").click(function () {
+                    var i = recordsetCount();
+                    var id = $(recordset).attr("data-id")
+                    $(recordset).remove();
+                    resetNumbering();
+                    obj.siblings("input[name$='" + options.countFieldPrefix + "']").val(obj.children(".recordset").length);
+                    i--;
+                    if (options.onDelete != null) {
+                        if (id != null)
+                            obj.trigger("onDelete", id);
+                    }
+                });
             }
 
-            function recordsetCount() {
+            function recordsetCount(){
                 return obj.children(".recordset").length;
             }
 
-            function isMaxRecordset() {
+            function isMaxRecordset(){
                 return recordsetCount() >= options.max;
             }
         });

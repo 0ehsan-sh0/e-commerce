@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
@@ -46,3 +47,5 @@ Route::post('products/{product}/images-add', [ProductImageController::class, 'ad
 Route::get('products/{product}/category-edit', [ProductController::class, 'editCategory'])->name('products.category.edit');
 Route::put('products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
 });
+
+Route::get('/' , [HomeController::class , 'index']);

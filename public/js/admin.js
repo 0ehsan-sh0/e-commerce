@@ -14,7 +14,6 @@ __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
 __webpack_require__(/*! bootstrap-select */ "./node_modules/bootstrap-select/dist/js/bootstrap-select.js");
 __webpack_require__(/*! bootstrap-select/dist/js/i18n/defaults-fa_IR */ "./node_modules/bootstrap-select/dist/js/i18n/defaults-fa_IR.js");
 __webpack_require__(/*! ./files/jquery.czMore-latest */ "./resources/js/admin/files/jquery.czMore-latest.js");
-__webpack_require__(/*! ./files/jquery.czMore-latest */ "./resources/js/admin/files/jquery.czMore-latest.js");
 __webpack_require__(/*! md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.js */ "./node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.js");
 (function ($) {
   "use strict";
@@ -22,31 +21,28 @@ __webpack_require__(/*! md.bootstrappersiandatetimepicker/dist/jquery.md.bootstr
   // Start of use strict
 
   // Toggle the side navigation
-  $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
+  $("#sidebarToggle, #sidebarToggleTop").on("click", function (e) {
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
     if ($(".sidebar").hasClass("toggled")) {
-      $('.sidebar .collapse').collapse('hide');
+      $(".sidebar .collapse").collapse("hide");
     }
-    ;
   });
 
   // Close any open menu accordions when window is resized below 768px
   if ($(window).width() < 768) {
-    $('.sidebar .collapse').collapse('hide');
+    $(".sidebar .collapse").collapse("hide");
   }
-  ;
 
   // Toggle the side navigation when window is resized below 480px
   if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
     $("body").addClass("sidebar-toggled");
     $(".sidebar").addClass("toggled");
-    $('.sidebar .collapse').collapse('hide');
+    $(".sidebar .collapse").collapse("hide");
   }
-  ;
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
-  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
+  $("body.fixed-nav .sidebar").on("mousewheel DOMMouseScroll wheel", function (e) {
     if ($(window).width() > 768) {
       var e0 = e.originalEvent,
         delta = e0.wheelDelta || -e0.detail;
@@ -56,21 +52,21 @@ __webpack_require__(/*! md.bootstrappersiandatetimepicker/dist/jquery.md.bootstr
   });
 
   // Scroll to top button appear
-  $(document).on('scroll', function () {
+  $(document).on("scroll", function () {
     var scrollDistance = $(this).scrollTop();
     if (scrollDistance > 100) {
-      $('.scroll-to-top').fadeIn();
+      $(".scroll-to-top").fadeIn();
     } else {
-      $('.scroll-to-top').fadeOut();
+      $(".scroll-to-top").fadeOut();
     }
   });
 
   // Smooth scrolling using jQuery easing
-  $(document).on('click', 'a.scroll-to-top', function (e) {
+  $(document).on("click", "a.scroll-to-top", function (e) {
     var $anchor = $(this);
-    $('html, body').stop().animate({
-      scrollTop: $($anchor.attr('href')).offset().top
-    }, 1000, 'easeInOutExpo');
+    $("html, body").stop().animate({
+      scrollTop: $($anchor.attr("href")).offset().top
+    }, 1000, "easeInOutExpo");
     e.preventDefault();
   });
 })(jQuery); // End of use strict
@@ -104,7 +100,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
       onAdd: null,
       onDelete: null,
       styleOverride: false,
-      countFieldPrefix: "_czMore_txtCount"
+      countFieldPrefix: '_czMore_txtCount'
     };
     //Update unset options with defaults if needed
     var options = $.extend(defaults, options);
@@ -131,16 +127,16 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
       var btnPlus = obj.siblings("#btnPlus");
       if (!options.styleOverride) {
         btnPlus.css({
-          "float": "right",
-          border: "0px",
-          "background-position": "center center",
-          "background-repeat": "no-repeat",
-          height: "25px",
-          width: "25px",
-          cursor: "pointer"
+          'float': 'right',
+          'border': '0px',
+          'background-position': 'center center',
+          'background-repeat': 'no-repeat',
+          'height': '25px',
+          'width': '25px',
+          'cursor': 'pointer'
         });
-        btnPlus.append($("<i/>", {
-          "class": "fa fa-plus fa-lg text-success"
+        btnPlus.append($('<i/>', {
+          "class": 'fa fa-plus fa-lg text-success'
         }));
       }
       if (recordset.length) {
@@ -184,7 +180,7 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
 
       function resetNumbering() {
         $(obj).children(".recordset").each(function (index, element) {
-          $(element).find("input:text, input:password, input:file, select, textarea").each(function () {
+          $(element).find('input:text, input:password, input:file, select, textarea').each(function () {
             var old_name = this.name;
             var new_name = old_name.replace(/\_([0-9]\d{0})\_/g, "_" + (index + 1) + "_");
             this.id = this.name = new_name;
@@ -201,16 +197,16 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
         var btnMinus = $(recordset).children("#btnMinus");
         if (!options.styleOverride) {
           btnMinus.css({
-            "float": "right",
-            border: "0px",
-            "background-position": "center center",
-            "background-repeat": "no-repeat",
-            height: "25px",
-            width: "25px",
-            cursor: "poitnter"
+            'float': 'right',
+            'border': '0px',
+            'background-position': 'center center',
+            'background-repeat': 'no-repeat',
+            'height': '25px',
+            'width': '25px',
+            'cursor': 'poitnter'
           });
-          btnMinus.append($("<i/>", {
-            "class": "fa fa-times fa-lg text-danger"
+          btnMinus.append($('<i/>', {
+            "class": 'fa fa-times fa-lg text-danger'
           }));
         }
       }
@@ -37626,6 +37622,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/scss/home/home.scss":
+/*!***************************************!*\
+  !*** ./resources/scss/home/home.scss ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/moment/locale/af.js":
 /*!******************************************!*\
   !*** ./node_modules/moment/locale/af.js ***!
@@ -59327,7 +59336,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/admin": 0,
-/******/ 			"css/admin/admin": 0
+/******/ 			"css/home": 0,
+/******/ 			"css/admin": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -59377,8 +59387,9 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/admin/admin"], () => (__webpack_require__("./resources/js/admin/admin.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin/admin"], () => (__webpack_require__("./resources/scss/admin/admin.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/admin"], () => (__webpack_require__("./resources/js/admin/admin.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/admin"], () => (__webpack_require__("./resources/scss/admin/admin.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/home","css/admin"], () => (__webpack_require__("./resources/scss/home/home.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

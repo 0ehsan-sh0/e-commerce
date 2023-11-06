@@ -9,11 +9,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Webprog.ir - @yield('title')</title>
+  <title>MyShop.ir - @yield('title')</title>
 
-  
-  <link href="{{asset('/css/admin/admin.css')}}" rel="stylesheet">
-  @yield('styles')
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('/css/admin.css') }}" rel="stylesheet">
+  @yield('style')
 
 </head>
 
@@ -60,12 +60,12 @@
   <!-- Scroll to Top Button-->
   @include('admin.sections.scroll_top')
 
-  
+  <!-- JavaScript-->
+<script src="{{ asset('/js/admin.js') }}"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{asset('/js/admin.js')}}"></script>
-  @include('sweetalert::alert')
-  @yield('scripts')
+@include('sweetalert::alert')
+
+@yield('script')
 
 </body>
 
