@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,5 @@ Route::get('products/{product}/category-edit', [ProductController::class, 'editC
 Route::put('products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
 });
 
-Route::get('/' , [HomeController::class , 'index']);
+Route::get('/' , [HomeController::class , 'index'])->name('home.index');
+Route::get('/categories/{category:slug}' , [HomeCategoryController::class , 'show'])->name('home.categories.show');
