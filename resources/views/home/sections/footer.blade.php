@@ -4,7 +4,7 @@
             <nav>
                 <ul>
                     <li><a href="{{ route('home.index') }}">صفحه ای اصلی </a></li>
-                    <li><a href="{{ route('home.categories.show') }}">فروشگاه </a></li>
+                    <li><a href="shop.html">فروشگاه </a></li>
                     <li><a href="contact-us.html">تماس با ما </a></li>
                     <li><a href="about-us.html">ارتباط با ما </a></li>
                 </ul>

@@ -21,21 +21,24 @@
                                 <li><a href="contact-us.html"> تماس با ما </a></li>
 
                                 <li class="angle-shape">
-                                    <a href="{{ route('home.categories.show') }}"> فروشگاه </a>
+                                    <a href="shop.html"> فروشگاه </a>
                                     @php
-                                        $parentCategories = App\Models\Category::where('parent_id' , 0)->get();
+                                        $parentCategories = App\Models\Category::where('parent_id', 0)->get();
                                     @endphp
                                     <ul class="mega-menu">
                                         @foreach ($parentCategories as $parentCategory)
-                                        <li>
-                                            <a class="menu-title" href="{{ route('home.categories.show', ['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
+                                            <li>
+                                                <a class="menu-title"
+                                                    href="{{ route('home.categories.show', ['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
 
-                                            <ul>
-                                                @foreach ($parentCategory->children as $childCategory)
-                                                    <li><a href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}">{{ $childCategory->name }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
+                                                <ul>
+                                                    @foreach ($parentCategory->children as $childCategory)
+                                                        <li><a
+                                                                href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}">{{ $childCategory->name }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -79,7 +82,8 @@
                                         </div>
 
                                         <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-1.svg" /></a>
+                                            <a href="#"><img alt=""
+                                                    src="assets/img/cart/cart-1.svg" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
@@ -91,7 +95,8 @@
                                             <span>1 x 9,000</span>
                                         </div>
                                         <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg" /></a>
+                                            <a href="#"><img alt=""
+                                                    src="assets/img/cart/cart-2.svg" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
@@ -126,11 +131,14 @@
                             </button>
                             <div class="setting-content">
                                 <ul class="text-right">
-                                    <li><a href="login.html">ورود</a></li>
-                                    <li>
-                                        <a href="register.html">ایجاد حساب</a>
-                                    </li>
-                                    <li><a href="my-account.html">پروفایل</a></li>
+                                    @auth
+                                        <li><a href="my-account.html">پروفایل</a></li>
+                                    @else
+                                        <li><a href="{{ route('login') }}">ورود</a></li>
+                                        <li>
+                                            <a href="{{ route('register') }}">ایجاد حساب</a>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>
@@ -148,7 +156,8 @@
             <div class="sidebar-search-input">
                 <form>
                     <div class="form-search">
-                        <input id="search" class="input-text" value="" placeholder=" ...جستجو " type="search" />
+                        <input id="search" class="input-text" value="" placeholder=" ...جستجو "
+                            type="search" />
                         <button>
                             <i class="sli sli-magnifier"></i>
                         </button>
@@ -195,7 +204,8 @@
                                         </div>
 
                                         <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-1.svg" /></a>
+                                            <a href="#"><img alt=""
+                                                    src="assets/img/cart/cart-1.svg" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>
@@ -207,7 +217,8 @@
                                             <span>1 x 9,000</span>
                                         </div>
                                         <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg" /></a>
+                                            <a href="#"><img alt=""
+                                                    src="assets/img/cart/cart-2.svg" /></a>
                                             <div class="item-close">
                                                 <a href="#"><i class="sli sli-close"></i></a>
                                             </div>

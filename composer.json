@@ -9,8 +9,10 @@
         "cviebrock/eloquent-sluggable": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
         "hekmatinasser/verta": "^8.3",
+        "laravel/fortify": "^1.18",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
+        "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.8",
         "realrashid/sweet-alert": "^7.1"
     },

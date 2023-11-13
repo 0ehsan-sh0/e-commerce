@@ -23,17 +23,20 @@
                             <a href="{{ route('home.index') }}"> صفحه ای اصلی </a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="{{ route('home.categories.show') }}">فروشگاه</a>
+                            <a href="shop.html">فروشگاه</a>
                             @php
-                            $parentCategories = App\Models\Category::where('parent_id' , 0)->get();
+                                $parentCategories = App\Models\Category::where('parent_id', 0)->get();
                             @endphp
                             <ul class="dropdown">
                                 @foreach ($parentCategories as $parentCategory)
                                     <li class="menu-item-has-children">
-                                        <a href="{{ route('home.categories.show', ['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
+                                        <a
+                                            href="{{ route('home.categories.show', ['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
                                         <ul class="dropdown">
                                             @foreach ($parentCategory->children as $childCategory)
-                                                <li><a href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}"> {{ $childCategory->name }} </a></li>
+                                                <li><a
+                                                        href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}">
+                                                        {{ $childCategory->name }} </a></li>
                                             @endforeach
 
                                         </ul>
@@ -55,11 +58,14 @@
         <div class="mobile-curr-lang-wrap">
             <div class="single-mobile-curr-lang">
                 <ul class="text-right">
-                    <li class="my-3"><a href="login.html"> ورود </a></li>
-                    <li class="my-3">
-                        <a href="register.html"> ایجاد حساب </a>
-                    </li>
-                    <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
+                    @auth
+                        <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
+                    @else
+                        <li class="my-3"><a href="{{ route('login') }}"> ورود </a></li>
+                        <li class="my-3">
+                            <a href="{{ route('register') }}"> ایجاد حساب </a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>
