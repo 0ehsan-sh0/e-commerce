@@ -20,10 +20,10 @@
                 <nav>
                     <ul class="mobile-menu text-right">
                         <li class="menu-item-has-children">
-                            <a href="index.html"> صفحه ای اصلی </a>
+                            <a href="{{ route('home.index') }}"> صفحه ای اصلی </a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="shop.html">فروشگاه</a>
+                            <a href="{{ route('home.categories.show') }}">فروشگاه</a>
                             @php
                             $parentCategories = App\Models\Category::where('parent_id' , 0)->get();
                             @endphp

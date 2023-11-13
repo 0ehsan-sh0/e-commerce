@@ -21,7 +21,7 @@
                                 <li><a href="contact-us.html"> تماس با ما </a></li>
 
                                 <li class="angle-shape">
-                                    <a href="shop.html"> فروشگاه </a>
+                                    <a href="{{ route('home.categories.show') }}"> فروشگاه </a>
                                     @php
                                         $parentCategories = App\Models\Category::where('parent_id' , 0)->get();
                                     @endphp
@@ -41,7 +41,7 @@
                                 </li>
 
                                 <li class="angle-shape">
-                                    <a href="index.html"> صفحه اصلی </a>
+                                    <a href="{{ route('home.index') }}"> صفحه اصلی </a>
                                 </li>
                             </ul>
                         </nav>
@@ -163,7 +163,7 @@
             <div class="row align-items-center">
                 <div class="col-6">
                     <div class="mobile-logo">
-                        <a href="index.html">
+                        <a href="{{ route('home.index') }}">
                             <h4 class="font-weight-bold">MyShop.ir</h4>
                         </a>
                     </div>

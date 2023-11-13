@@ -82,7 +82,7 @@
                 @foreach ($indexTopBanners->chunk(3)->first() as $banner)
                     <div class="col-lg-4 col-md-4">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="product-details.html">
+                            <a href="{{ $banner->button_link }}">
                                 <img class="animated" src="{{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }}"
                                     alt="" />
                             </a>
@@ -96,7 +96,7 @@
                 @foreach ($indexTopBanners->chunk(3)->last() as $banner)
                     <div class="col-lg-6 col-md-6">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="product-details.html"><img class="animated"
+                            <a href="{{ $banner->button_link }}"><img class="animated"
                                     src="{{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }}"
                                     alt="" /></a>
                             <div
@@ -140,7 +140,7 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="product-details.html" class="ht-product-image">
+                                        <a href="{{ route('home.products.show', ['product' => $product->slug]) }}" class="ht-product-image">
                                             <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                                 alt="{{ $product->name }}" />
                                         </a>
@@ -265,7 +265,7 @@
                 @foreach ($indexBottomBanners as $banner)
                     <div class="col-lg-6 col-md-6 text-right">
                         <div class="single-banner mb-30 scroll-zoom">
-                            <a href="product-details.html"><img
+                            <a href="{{ route('home.products.show', ['product' => $product->slug]) }}"><img
                                     src="{{ asset(env('BANNER_IMAGES_UPLOAD_PATH') . $banner->image) }}"
                                     alt="" /></a>
                             <div class="banner-content {{ $loop->last ? 'banner-position-4' : 'banner-position-3' }}">
