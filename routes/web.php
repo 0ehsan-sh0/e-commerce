@@ -6,10 +6,14 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 
@@ -24,10 +28,10 @@ use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 |
 */
 
+// ---------------------------------------------------------------- Admin
 Route::get('/admin-panel/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard');
-
 Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 
     Route::resource('brands', BrandController::class);
@@ -36,6 +40,8 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('tags', TagController::class);
     Route::resource('products', ProductController::class);
     Route::resource('banners', BannerController::class);
+    Route::resource('comments', CommentController::class);
+    Route::get('comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.changeApprove');
 
     // Get Category Attributes
     Route::get('category-attributes/{category}', [CategoryController::class, 'getCategoryAttributes']);
@@ -50,14 +56,25 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::get('products/{product}/category-edit', [ProductController::class, 'editCategory'])->name('products.category.edit');
     Route::put('products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
 });
+// Admin ----------------------------------------------------------------
 
+// ---------------------------------------------------------------- User
+Route::prefix('profile')->name('home.')->group(function () {
+    Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
+    Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
+    Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
+});
+// User ----------------------------------------------------------------
+
+// ---------------------------------------------------------------- Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/categories/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('/products/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
+Route::post('/comments/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
+
+Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
+
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
-
-
-Route::get('/test', function () {
-    return auth()->logout();
-});
+// Public Routes ----------------------------------------------------------------

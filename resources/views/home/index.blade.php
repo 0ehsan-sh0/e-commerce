@@ -140,7 +140,8 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="{{ route('home.products.show', ['product' => $product->slug]) }}" class="ht-product-image">
+                                        <a href="{{ route('home.products.show', ['product' => $product->slug]) }}"
+                                            class="ht-product-image">
                                             <img src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
                                                 alt="{{ $product->name }}" />
                                         </a>
@@ -154,9 +155,27 @@
                                                         </span></a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="sli sli-heart"></i><span
-                                                            class="ht-product-action-tooltip"> افزودن به
-                                                            علاقه مندی ها </span></a>
+                                                    @auth
+                                                        @if ($product->checkUserWishlist(auth()->id()))
+                                                            <a
+                                                                href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i
+                                                                    class="fas fa-heart" style="color: red"></i><span
+                                                                    class="ht-product-action-tooltip">در لیست علاقه مندی ها وجود
+                                                                    دارد</span></a>
+                                                        @else
+                                                            <a
+                                                                href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                    class="sli sli-heart"></i><span
+                                                                    class="ht-product-action-tooltip"> افزودن به
+                                                                    علاقه مندی ها </span></a>
+                                                        @endif
+                                                    @else
+                                                        <a
+                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                class="sli sli-heart"></i><span
+                                                                class="ht-product-action-tooltip"> افزودن به
+                                                                علاقه مندی ها </span></a>
+                                                    @endauth
                                                 </li>
                                                 <li>
                                                     <a href="#"><i class="sli sli-refresh"></i><span
@@ -364,7 +383,7 @@
                                             data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                                         </div>
                                         <span class="mx-3">|</span>
-                                        <span>3 دیدگاه</span>
+                                        <span>{{ $product->approvedComments()->count() }} دیدگاه</span>
                                     </div>
                                     <p class="text-right">
                                         {{ $product->descriptio }}
@@ -412,8 +431,20 @@
                                                 <a href="#">افزودن به سبد خرید</a>
                                             </div>
                                             <div class="pro-details-wishlist">
-                                                <a title="Add To Wishlist" href="#"><i
-                                                        class="sli sli-heart"></i></a>
+                                                @auth
+                                                    @if ($product->checkUserWishlist(auth()->id()))
+                                                        <a
+                                                            href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i
+                                                                class="fas fa-heart" style="color: red"></i></a>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                class="sli sli-heart"></i></a>
+                                                    @endif
+                                                @else
+                                                    <a href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                            class="sli sli-heart"></i></a>
+                                                @endauth
                                             </div>
                                             <div class="pro-details-compare">
                                                 <a title="Add To Compare" href="#"><i
