@@ -247,26 +247,28 @@
                                                             </li>
                                                             <li>
                                                                 @auth
-                                                                @if ($product->checkUserWishlist(auth()->id()))
-                                                                    <a
-                                                                        href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i
-                                                                            class="fas fa-heart" style="color: red"></i><span
-                                                                            class="ht-product-action-tooltip">در لیست علاقه مندی ها وجود
-                                                                            دارد</span></a>
+                                                                    @if ($product->checkUserWishlist(auth()->id()))
+                                                                        <a
+                                                                            href="{{ route('home.wishlist.remove', ['product' => $product->id]) }}"><i
+                                                                                class="fas fa-heart"
+                                                                                style="color: red"></i><span
+                                                                                class="ht-product-action-tooltip">در لیست علاقه
+                                                                                مندی ها وجود
+                                                                                دارد</span></a>
+                                                                    @else
+                                                                        <a
+                                                                            href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
+                                                                                class="sli sli-heart"></i><span
+                                                                                class="ht-product-action-tooltip"> افزودن به
+                                                                                علاقه مندی ها </span></a>
+                                                                    @endif
                                                                 @else
                                                                     <a
                                                                         href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
                                                                             class="sli sli-heart"></i><span
                                                                             class="ht-product-action-tooltip"> افزودن به
                                                                             علاقه مندی ها </span></a>
-                                                                @endif
-                                                            @else
-                                                                <a
-                                                                    href="{{ route('home.wishlist.add', ['product' => $product->id]) }}"><i
-                                                                        class="sli sli-heart"></i><span
-                                                                        class="ht-product-action-tooltip"> افزودن به
-                                                                        علاقه مندی ها </span></a>
-                                                            @endauth
+                                                                @endauth
                                                             </li>
                                                             <li>
                                                                 <a href="#"><i class="sli sli-refresh"></i><span
@@ -452,7 +454,7 @@
                                                 @endauth
                                             </div>
                                             <div class="pro-details-compare">
-                                                <a title="Add To Compare" href="#"><i
+                                                <a href="{{ route('home.compare.add', ['product' => $product->id]) }}"><i
                                                         class="sli sli-refresh"></i></a>
                                             </div>
                                         </div>
@@ -466,7 +468,8 @@
                                     <div class="pro-details-meta">
                                         <span>دسته بندی :</span>
                                         <ul>
-                                            <li><a href="#">{{ $product->category->parent->name }}،
+                                            <li><a
+                                                    href="{{ route('home.categories.show', ['category' => $product->category->slug]) }}">{{ $product->category->parent->name }}،
                                                     {{ $product->category->name }}</a></li>
                                         </ul>
                                     </div>

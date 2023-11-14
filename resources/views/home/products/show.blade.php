@@ -150,7 +150,7 @@
                                     @endauth
                                 </div>
                                 <div class="pro-details-compare">
-                                    <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                    <a href="{{ route('home.compare.add', ['product' => $product->id]) }}"><i class="sli sli-refresh"></i></a>
                                 </div>
                             </div>
                         @else
