@@ -34,6 +34,7 @@
         </a>
     </li>
 
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true"
             aria-controls="collapsePages">
@@ -50,6 +51,35 @@
             </div>
         </div>
     </li>
+
+     <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <!-- Heading -->
+     <div class="sidebar-heading">
+         سفارشات
+     </div>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="true"
+            aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span> سفارشات </span>
+        </a>
+        <div id="collapseOrders" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('admin.coupons.index') }}">کد های تخفیف</a>
+            </div>
+        </div>
+    </li>
+
+     <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <!-- Heading -->
+     <div class="sidebar-heading">
+         تنظیمات
+     </div>
 
     <!-- Nav Item - Bannerس -->
     <li class="nav-item active">

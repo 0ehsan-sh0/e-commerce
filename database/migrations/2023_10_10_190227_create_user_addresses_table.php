@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('address');
+            $table->string('cellphone');
             $table->string('postal_code');
 
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
@@ -24,7 +25,7 @@ return new class extends Migration
             // Optional
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            
+
             $table->timestamps();
         });
     }

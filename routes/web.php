@@ -3,15 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Home\UserAddressController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
@@ -42,6 +45,7 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('banners', BannerController::class);
     Route::resource('comments', CommentController::class);
+    Route::resource('coupons', CouponController::class);
     Route::get('comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.changeApprove');
 
     // Get Category Attributes
@@ -61,11 +65,20 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 
 // ---------------------------------------------------------------- User
 Route::prefix('profile')->name('home.')->group(function () {
+
     Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
+
     Route::get('/comments', [HomeCommentController::class, 'usersProfileIndex'])->name('comments.users_profile.index');
+
     Route::get('/wishlist', [WishlistController::class, 'usersProfileIndex'])->name('wishlist.users_profile.index');
+
+    Route::get('/addresses', [UserAddressController::class, 'index'])->name('addresses.index');
+    Route::post('/addresses', [UserAddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/{address}', [UserAddressController::class, 'update'])->name('addresses.update');
 });
 // User ----------------------------------------------------------------
+
+Route::get('/get-province-cities-list', [UserAddressController::class, 'getProvinceCitiesList']);
 
 // ---------------------------------------------------------------- Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -79,6 +92,14 @@ Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remov
 Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
 Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
 Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
+
+Route::get('/cart', [CartController::class, 'index'])->name('home.cart.index');
+Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
+Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
+Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update');
+Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
+Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home.coupons.check');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('home.orders.checkout');
 
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);

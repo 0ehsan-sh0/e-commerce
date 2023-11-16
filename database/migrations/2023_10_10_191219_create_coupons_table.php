@@ -21,8 +21,8 @@ return new class extends Migration
             $table->unsignedInteger('percentage')->nullable();
             $table->unsignedInteger('max_percentage_amount')->nullable();
 
-            $table->timestamp('expires_at');
-            $table->text('description');
+            $table->timestamp('expired_at');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
