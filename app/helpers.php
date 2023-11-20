@@ -51,37 +51,40 @@ function cartTotalDeliveryAmount()
 function checkCoupon($code)
 {
     $coupon = Coupon::where('code', $code)->where('expired_at', '>', Carbon::now())->first();
-    if (!$coupon)
+
+    if ($coupon == null) {
+
+        session()->forget('coupon');
         return ['error' => 'کد تخفیف وارد شده وجود ندارد'];
-
-    if (Order::where('user_id', auth()->id())->where('coupon_id', $coupon->id)->where('payment_status', 1)->exists())
-        return ['error' => 'شما قبلا از این کد تخفیف استفاده کرده اید'];
-
-    if ($coupon->getRawOriginal('type') === 'amount')
-        session()->put('coupon', [
-            'code' => $coupon->code,
-            'amount' => $coupon->amount,
-        ]);
-    else {
-        $total = \Cart::getTotal();
-        $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
-        session()->put('coupon', [
-            'code' => $coupon->code,
-            'percentage' => $coupon->percentage,
-            'amount' => $amount,
-        ]);
     }
 
-    return ['success' => 'کد تخفیف برای شما اعمال شد'];
+    if (Order::where('user_id', auth()->id())->where('coupon_id', $coupon->id)->where('payment_status', 1)->exists()) {
+        session()->forget('coupon');
+        return ['error' => 'شما قبلا از این کد تخفیف استفاده کرده اید'];
+    }
+
+    if ($coupon->getRawOriginal('type') == 'amount') {
+        session()->put('coupon', ['code' => $coupon->code, 'id' => $coupon->id, 'amount' => $coupon->amount]);
+    } else {
+        $total = \Cart::getTotal();
+
+        $amount = (($total * $coupon->percentage) / 100) > $coupon->max_percentage_amount ? $coupon->max_percentage_amount : (($total * $coupon->percentage) / 100);
+
+        session()->put('coupon', ['code' => $coupon->code, 'id' => $coupon->id, 'amount' => $amount]);
+    }
+
+    return ['success' => 'کد تخفیف برای شما ثبت شد'];
 }
 
 function cartTotalAmount()
 {
-    $totalAmount = \Cart::getTotal();
     if (session()->has('coupon')) {
-        if (session()->get('coupon.amount') > ($totalAmount + cartTotalDeliveryAmount()))
+        if (session()->get('coupon.amount') > (\Cart::getTotal() + cartTotalDeliveryAmount())) {
             return 0;
-        else return ($totalAmount + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
-    } else
-        $totalAmount + cartTotalDeliveryAmount();
+        } else {
+            return (\Cart::getTotal() + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
+        }
+    } else {
+        return \Cart::getTotal() + cartTotalDeliveryAmount();
+    }
 }

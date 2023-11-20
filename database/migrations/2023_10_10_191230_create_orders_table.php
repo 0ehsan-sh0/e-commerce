@@ -18,13 +18,13 @@ return new class extends Migration
             $table->unsignedInteger('delivery_amount')->default(0);
             $table->unsignedInteger('coupon_amount')->default(0);
             $table->unsignedInteger('paying_amount');
-            $table->enum('payment_type', ['pos', 'cash' , 'shabaNumber', 'cardToCard', 'online']);
+            $table->enum('payment_type', ['pos', 'cash', 'shabaNumber', 'cardToCard', 'online']);
             $table->tinyInteger('payment_status')->default(0);
             $table->text('description')->nullable();
 
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('address_id')->references('id')->on('user_addresses')->cascadeOnDelete();
-            $table->foreignId('coupon_id')->references('id')->on('coupons')->cascadeOnDelete();
+            $table->foreignId('coupon_id')->references('id')->on('coupons')->cascadeOnDelete()->nullable();
             $table->timestamps();
         });
     }

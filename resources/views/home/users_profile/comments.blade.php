@@ -39,7 +39,7 @@
                                     <div class="myaccount-content">
                                         <h3> نظرات </h3>
                                         <div class="review-wrapper">
-                                            @if ($wishlist->isEmpty())
+                                            @if ($comments->isEmpty())
                                                 <div class="alert alert-danger">
                                                     لیست نظرات خالی است
                                                 </div>

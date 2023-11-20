@@ -6,9 +6,11 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Home\CompareController;
+use App\Http\Controllers\Home\PaymentController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Home\WishlistController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Home\UserAddressController;
 use App\Http\Controllers\Home\UserProfileController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
@@ -46,6 +49,10 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('banners', BannerController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('coupons', CouponController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('transactions', TransactionController::class);
+
+
     Route::get('comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.changeApprove');
 
     // Get Category Attributes
@@ -75,6 +82,8 @@ Route::prefix('profile')->name('home.')->group(function () {
     Route::get('/addresses', [UserAddressController::class, 'index'])->name('addresses.index');
     Route::post('/addresses', [UserAddressController::class, 'store'])->name('addresses.store');
     Route::put('/addresses/{address}', [UserAddressController::class, 'update'])->name('addresses.update');
+
+    Route::get('/orders', [CartController::class, 'usersProfileIndex'])->name('orders.users_profile.index');
 });
 // User ----------------------------------------------------------------
 
@@ -100,6 +109,9 @@ Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update')
 Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
 Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home.coupons.check');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('home.orders.checkout');
+
+Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
+Route::get('/payment-verify/{gatewayName}', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
 
 Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class, 'handleProviderCallback']);

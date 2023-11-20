@@ -9,6 +9,7 @@ use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use App\Models\ProductVariation;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 
 class CartController extends Controller
 {
@@ -111,5 +112,11 @@ class CartController extends Controller
         $addresses = UserAddress::where('user_id', auth()->id())->get();
         $provinces = Province::all();
         return view('home.cart.checkout', compact('provinces', 'addresses'));
+    }
+
+    public function usersProfileIndex()
+    {
+        $orders = Order::where('user_id', auth()->id())->get();
+        return view('home.users_profile.orders', compact('orders'));
     }
 }
