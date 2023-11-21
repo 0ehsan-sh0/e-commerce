@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Home\WishlistController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Home\UserAddressController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -51,6 +54,9 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
     Route::resource('coupons', CouponController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('transactions', TransactionController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('permissions', PermissionController::class);
+    Route::resource('roles', RoleController::class);
 
 
     Route::get('comments/{comment}/change-approve', [CommentController::class, 'changeApprove'])->name('comments.changeApprove');
@@ -88,6 +94,11 @@ Route::prefix('profile')->name('home.')->group(function () {
 // User ----------------------------------------------------------------
 
 Route::get('/get-province-cities-list', [UserAddressController::class, 'getProvinceCitiesList']);
+
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about-us');
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('home.contact-us');
+Route::post('/contact-us-form', [HomeController::class, 'contactUsForm'])->name('home.contact-us.form');
+
 
 // ---------------------------------------------------------------- Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
