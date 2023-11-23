@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthController;
@@ -39,9 +40,7 @@ use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 */
 
 // ---------------------------------------------------------------- Admin
-Route::get('/admin-panel/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::get('/admin-panel/dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 
     Route::resource('brands', BrandController::class);
