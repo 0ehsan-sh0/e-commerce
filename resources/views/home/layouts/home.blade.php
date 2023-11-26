@@ -40,12 +40,18 @@
     <script src="{{ asset('/js/home/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('/js/home/plugins.js') }}"></script>
     <script src="{{ asset('/js/home.js') }}"></script>
-
+    <script>
+        $(document).ready(function() {
+            $('#logout').click(function() {
+                $('#myForm').submit();
+            });
+        });
+    </script>
     @include('sweetalert::alert')
 
     @yield('script')
 
-    {!!  GoogleReCaptchaV3::init() !!}
+    {!! GoogleReCaptchaV3::init() !!}
 
 </body>
 

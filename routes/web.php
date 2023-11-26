@@ -40,8 +40,8 @@ use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 */
 
 // ---------------------------------------------------------------- Admin
-Route::get('/admin-panel/dashboard', [AdminController::class, 'index'])->name('dashboard');
-Route::prefix('admin-panel/management')->name('admin.')->group(function () {
+Route::get('/admin-panel/dashboard', [AdminController::class, 'index'])->middleware('role:admin')->name('dashboard');
+Route::prefix('admin-panel/management')->middleware('role:admin')->name('admin.')->group(function () {
 
     Route::resource('brands', BrandController::class);
     Route::resource('attributes', AttributeController::class);
@@ -76,7 +76,7 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 // Admin ----------------------------------------------------------------
 
 // ---------------------------------------------------------------- User
-Route::prefix('profile')->name('home.')->group(function () {
+Route::prefix('profile')->middleware('auth')->name('home.')->group(function () {
 
     Route::get('/', [UserProfileController::class, 'index'])->name('users_profile.index');
 
